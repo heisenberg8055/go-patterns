@@ -2,6 +2,7 @@ package abstract_factory
 
 import "fmt"
 
+// Client Code
 func Abstract_factory() {
 	adidasFactory, _ := GetSportsFactory("adidas")
 	nikeFactory, _ := GetSportsFactory("nike")
