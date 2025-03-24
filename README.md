@@ -1,2 +1,2 @@
 # go-patterns
-Practice for go-design patterns
+Go-design patterns
