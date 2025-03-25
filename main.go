@@ -1,7 +1,7 @@
 package main
 
-import abs "github.com/heisenberg8055/go-patterns/factory"
+import abs "github.com/heisenberg8055/go-patterns/builder"
 
 func main() {
-	abs.Factory()
+	abs.Builder()
 }
