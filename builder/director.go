@@ -1,5 +1,6 @@
 package builder
 
+// Director
 type Director struct {
 	builder IBuilder
 }
