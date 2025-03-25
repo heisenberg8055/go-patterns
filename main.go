@@ -1,7 +1,7 @@
 package main
 
-import abs "github.com/heisenberg8055/go-patterns/builder"
+import abs "github.com/heisenberg8055/go-patterns/prototype"
 
 func main() {
-	abs.Builder()
+	abs.Prototype()
 }
