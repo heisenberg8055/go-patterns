@@ -1,14 +1,16 @@
 package main
 
 import (
-	"fmt"
-
-	abs "github.com/heisenberg8055/go-patterns/creational/singleton"
+	abs "github.com/heisenberg8055/go-patterns/structural/adapter"
 )
 
 func main() {
-	for i := 0; i < 30; i++ {
-		go abs.GetInstance()
-	}
-	fmt.Scanln()
+	client := &abs.Client{}
+	mac := &abs.Mac{}
+	client.InsertLightningConnectorIntoPC(mac)
+
+	windowsMachine := &abs.Windows{}
+	windowsAdapter := &abs.WindowsAdapter{WindowsMachine: windowsMachine}
+	windowsAdapter.InsertIntoLightningPort()
+
 }
