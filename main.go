@@ -1,23 +1,20 @@
 package main
 
 import (
-	abs "github.com/heisenberg8055/go-patterns/structural/composite"
+	"fmt"
+
+	abs "github.com/heisenberg8055/go-patterns/structural/decorator"
 )
 
 func main() {
 
-	file1 := &abs.File{Name: "File1"}
-	file2 := &abs.File{Name: "File2"}
-	file3 := &abs.File{Name: "File3"}
+	normalPizza := &abs.VeggieMania{}
 
-	folder1 := &abs.Folder{Name: "Folder1"}
-	folder1.Add(file1)
+	pizzaCheese := &abs.CheeseTopping{Pizza: normalPizza}
 
-	folder2 := &abs.Folder{Name: "Folder2"}
+	pizzaTomato := &abs.TomatoToppings{Pizza: normalPizza}
 
-	folder2.Add(file2)
-	folder2.Add(file3)
-	folder2.Add(folder1)
+	pizzaBoth := &abs.TomatoToppings{Pizza: pizzaCheese}
 
-	folder2.Search("test")
+	fmt.Printf("Normal: %d, Cheese: %d, Tomato: %d, Both: %d", normalPizza.GetPrice(), pizzaCheese.GetPrice(), pizzaTomato.GetPrice(), pizzaBoth.GetPrice())
 }
