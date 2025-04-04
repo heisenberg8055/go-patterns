@@ -3,24 +3,29 @@ package main
 import (
 	"fmt"
 
-	abs "github.com/heisenberg8055/go-patterns/structural/flyweight"
+	abs "github.com/heisenberg8055/go-patterns/structural/proxy"
+)
+
+const (
+	appStatusURL  = "/app/status"
+	createuserURL = "/create/user"
 )
 
 func main() {
-	game := abs.NewGame()
-	game.AddTerrorist(abs.TerroristDressType)
-	game.AddTerrorist(abs.TerroristDressType)
-	game.AddTerrorist(abs.TerroristDressType)
-	game.AddTerrorist(abs.TerroristDressType)
+	nginxServer := abs.NewNgixServer()
 
-	game.AddCounterTerrorist(abs.CounterTerroristDressType)
-	game.AddCounterTerrorist(abs.CounterTerroristDressType)
-	game.AddCounterTerrorist(abs.CounterTerroristDressType)
-	game.AddCounterTerrorist(abs.CounterTerroristDressType)
+	httpCode, body := nginxServer.HandleRequest(appStatusURL, "GET")
+	fmt.Printf("\nUrl: %s\nHttpCode: %d\nBody: %s\n", appStatusURL, httpCode, body)
 
-	dressFactoryInstance := abs.GetDressFactorySingleInstance()
+	httpCode, body = nginxServer.HandleRequest(appStatusURL, "GET")
+	fmt.Printf("\nUrl: %s\nHttpCode: %d\nBody: %s\n", appStatusURL, httpCode, body)
 
-	for dressType, dress := range dressFactoryInstance.DressMap {
-		fmt.Printf("Color: %s\tType: %s\n", dress.GetColor(), dressType)
-	}
+	httpCode, body = nginxServer.HandleRequest(appStatusURL, "GET")
+	fmt.Printf("\nUrl: %s\nHttpCode: %d\nBody: %s\n", appStatusURL, httpCode, body)
+
+	httpCode, body = nginxServer.HandleRequest(createuserURL, "POST")
+	fmt.Printf("\nUrl: %s\nHttpCode: %d\nBody: %s\n", appStatusURL, httpCode, body)
+
+	httpCode, body = nginxServer.HandleRequest(createuserURL, "GET")
+	fmt.Printf("\nUrl: %s\nHttpCode: %d\nBody: %s\n", appStatusURL, httpCode, body)
 }
