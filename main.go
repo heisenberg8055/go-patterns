@@ -1,26 +1,23 @@
 package main
 
 import (
-	abs "github.com/heisenberg8055/go-patterns/structural/bridge"
+	abs "github.com/heisenberg8055/go-patterns/structural/composite"
 )
 
 func main() {
 
-	hpPrinter := &abs.Hp{}
-	epsonPrinter := &abs.Epson{}
+	file1 := &abs.File{Name: "File1"}
+	file2 := &abs.File{Name: "File2"}
+	file3 := &abs.File{Name: "File3"}
 
-	mac := &abs.Mac{}
-	mac.SetPrinter(hpPrinter)
-	mac.Print()
+	folder1 := &abs.Folder{Name: "Folder1"}
+	folder1.Add(file1)
 
-	mac.SetPrinter(epsonPrinter)
-	mac.Print()
+	folder2 := &abs.Folder{Name: "Folder2"}
 
-	windows := &abs.Windows{}
-	windows.SetPrinter(hpPrinter)
-	windows.Print()
+	folder2.Add(file2)
+	folder2.Add(file3)
+	folder2.Add(folder1)
 
-	windows.SetPrinter(epsonPrinter)
-	windows.Print()
-
+	folder2.Search("test")
 }
