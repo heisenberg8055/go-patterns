@@ -3,18 +3,18 @@ package main
 import (
 	"fmt"
 
-	abs "github.com/heisenberg8055/go-patterns/structural/decorator"
+	abs "github.com/heisenberg8055/go-patterns/structural/facade"
 )
 
 func main() {
 
-	normalPizza := &abs.VeggieMania{}
-
-	pizzaCheese := &abs.CheeseTopping{Pizza: normalPizza}
-
-	pizzaTomato := &abs.TomatoToppings{Pizza: normalPizza}
-
-	pizzaBoth := &abs.TomatoToppings{Pizza: pizzaCheese}
-
-	fmt.Printf("Normal: %d, Cheese: %d, Tomato: %d, Both: %d", normalPizza.GetPrice(), pizzaCheese.GetPrice(), pizzaTomato.GetPrice(), pizzaBoth.GetPrice())
+	walletFacade := abs.NewWalletFacade("test", 123)
+	err := walletFacade.AddMoneyToWallet("test", 123, 14)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	err = walletFacade.DeductMoneyFromWallet("test", 123, 10)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 }
