@@ -1,21 +1,17 @@
 package main
 
 import (
-	"fmt"
-
-	abs "github.com/heisenberg8055/go-patterns/behavioral/iterator"
+	abs "github.com/heisenberg8055/go-patterns/behavioral/mediator"
 )
 
 func main() {
-	user1 := &abs.User{Name: "name1", Age: 10}
+	stationMaster := abs.NewStationMaster()
 
-	user2 := &abs.User{Name: "name2", Age: 20}
+	passengerTrain := &abs.PassengerTrain{Mediator: stationMaster}
 
-	userCollection := abs.UserCollection{Users: []*abs.User{user1, user2}}
+	FreightTrain := &abs.FreightTrain{Mediator: stationMaster}
 
-	iterator := userCollection.CreateIterator()
-
-	for iterator.HasNext() {
-		fmt.Printf("User: %+v\n", iterator.GetNext())
-	}
+	passengerTrain.Arrive()
+	FreightTrain.Arrive()
+	passengerTrain.Depart()
 }
