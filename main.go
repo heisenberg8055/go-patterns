@@ -1,21 +1,21 @@
 package main
 
 import (
-	abs "github.com/heisenberg8055/go-patterns/behavioral/command"
+	"fmt"
+
+	abs "github.com/heisenberg8055/go-patterns/behavioral/iterator"
 )
 
 func main() {
-	tv := &abs.Tv{}
+	user1 := &abs.User{Name: "name1", Age: 10}
 
-	onCommand := &abs.OnCommand{Device: tv}
+	user2 := &abs.User{Name: "name2", Age: 20}
 
-	offCommand := &abs.OffCommand{Device: tv}
+	userCollection := abs.UserCollection{Users: []*abs.User{user1, user2}}
 
-	onButton := &abs.Button{Command: onCommand}
+	iterator := userCollection.CreateIterator()
 
-	onButton.Press()
-
-	offButton := &abs.Button{Command: offCommand}
-
-	offButton.Press()
+	for iterator.HasNext() {
+		fmt.Printf("User: %+v\n", iterator.GetNext())
+	}
 }
