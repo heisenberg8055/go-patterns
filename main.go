@@ -1,31 +1,22 @@
 package main
 
 import (
-	"fmt"
-
-	abs "github.com/heisenberg8055/go-patterns/structural/proxy"
-)
-
-const (
-	appStatusURL  = "/app/status"
-	createuserURL = "/create/user"
+	abs "github.com/heisenberg8055/go-patterns/behavioral/chainOfResponsibility"
 )
 
 func main() {
-	nginxServer := abs.NewNgixServer()
+	cashier := &abs.Cashier{}
 
-	httpCode, body := nginxServer.HandleRequest(appStatusURL, "GET")
-	fmt.Printf("\nUrl: %s\nHttpCode: %d\nBody: %s\n", appStatusURL, httpCode, body)
+	medical := &abs.Medical{}
+	medical.SetNext(cashier)
 
-	httpCode, body = nginxServer.HandleRequest(appStatusURL, "GET")
-	fmt.Printf("\nUrl: %s\nHttpCode: %d\nBody: %s\n", appStatusURL, httpCode, body)
+	doctor := &abs.Doctor{}
+	doctor.SetNext(medical)
 
-	httpCode, body = nginxServer.HandleRequest(appStatusURL, "GET")
-	fmt.Printf("\nUrl: %s\nHttpCode: %d\nBody: %s\n", appStatusURL, httpCode, body)
+	reception := &abs.Reception{}
+	reception.SetNext(doctor)
 
-	httpCode, body = nginxServer.HandleRequest(createuserURL, "POST")
-	fmt.Printf("\nUrl: %s\nHttpCode: %d\nBody: %s\n", appStatusURL, httpCode, body)
+	patient := &abs.Patient{Name: "yes"}
 
-	httpCode, body = nginxServer.HandleRequest(createuserURL, "GET")
-	fmt.Printf("\nUrl: %s\nHttpCode: %d\nBody: %s\n", appStatusURL, httpCode, body)
+	reception.Execute(patient)
 }
