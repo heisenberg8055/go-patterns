@@ -1,22 +1,21 @@
 package main
 
 import (
-	abs "github.com/heisenberg8055/go-patterns/behavioral/chainOfResponsibility"
+	abs "github.com/heisenberg8055/go-patterns/behavioral/command"
 )
 
 func main() {
-	cashier := &abs.Cashier{}
+	tv := &abs.Tv{}
 
-	medical := &abs.Medical{}
-	medical.SetNext(cashier)
+	onCommand := &abs.OnCommand{Device: tv}
 
-	doctor := &abs.Doctor{}
-	doctor.SetNext(medical)
+	offCommand := &abs.OffCommand{Device: tv}
 
-	reception := &abs.Reception{}
-	reception.SetNext(doctor)
+	onButton := &abs.Button{Command: onCommand}
 
-	patient := &abs.Patient{Name: "yes"}
+	onButton.Press()
 
-	reception.Execute(patient)
+	offButton := &abs.Button{Command: offCommand}
+
+	offButton.Press()
 }
