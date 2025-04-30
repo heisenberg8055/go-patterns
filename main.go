@@ -1,17 +1,47 @@
 package main
 
 import (
-	abs "github.com/heisenberg8055/go-patterns/behavioral/observer"
+	"log"
+
+	abs "github.com/heisenberg8055/go-patterns/behavioral/state"
 )
 
 func main() {
-	shirtItem := abs.NewItem("Denim Shirt")
+	vendingMachine := abs.NewVendingMachine(1, 10)
 
-	obsFirst := &abs.Customer{Id: "test@gmail.com"}
-	obsSecond := &abs.Customer{Id: "test1@gmail.com"}
+	err := vendingMachine.RequestItem()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
 
-	shirtItem.Register(obsFirst)
-	shirtItem.Register(obsSecond)
+	err = vendingMachine.InsertMoney(10)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
 
-	shirtItem.UpdateAvailability()
+	err = vendingMachine.DispenseItem()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	err = vendingMachine.AddItem(2)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	err = vendingMachine.RequestItem()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	err = vendingMachine.InsertMoney(10)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	err = vendingMachine.DispenseItem()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
 }
