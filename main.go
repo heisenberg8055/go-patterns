@@ -1,17 +1,29 @@
 package main
 
 import (
-	abs "github.com/heisenberg8055/go-patterns/behavioral/mediator"
+	"fmt"
+
+	abs "github.com/heisenberg8055/go-patterns/behavioral/memento"
 )
 
 func main() {
-	stationMaster := abs.NewStationMaster()
+	careTaker := abs.Caretaker{MementoArray: make([]*abs.Memento, 0)}
 
-	passengerTrain := &abs.PassengerTrain{Mediator: stationMaster}
+	originator := abs.Originator{State: "A"}
+	fmt.Printf("Originator Current State: %s\n", originator.GetState())
+	careTaker.AddMemento(originator.CreateMemento())
 
-	FreightTrain := &abs.FreightTrain{Mediator: stationMaster}
+	originator.SetState("B")
+	fmt.Printf("Originator Current State: %s\n", originator.GetState())
+	careTaker.AddMemento(originator.CreateMemento())
 
-	passengerTrain.Arrive()
-	FreightTrain.Arrive()
-	passengerTrain.Depart()
+	originator.SetState("C")
+	fmt.Printf("Originator Current State: %s\n", originator.GetState())
+	careTaker.AddMemento(originator.CreateMemento())
+
+	originator.RestoreMemento(careTaker.GetMemento(1))
+	fmt.Printf("Originator Current State: %s\n", originator.GetState())
+
+	originator.RestoreMemento(careTaker.GetMemento(0))
+	fmt.Printf("Originator Current State: %s\n", originator.GetState())
 }
