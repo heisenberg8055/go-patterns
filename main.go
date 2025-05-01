@@ -1,20 +1,26 @@
 package main
 
 import (
-	abs "github.com/heisenberg8055/go-patterns/behavioral/template"
+	"fmt"
+
+	abs "github.com/heisenberg8055/go-patterns/behavioral/visitor"
 )
 
 func main() {
-	smsOtp := &abs.Sms{}
+	square := &abs.Square{Side: 2}
+	circle := &abs.Circle{Radius: 3}
+	rectangle := &abs.Rectangle{L: 2, B: 3}
 
-	o := abs.Otp{IO: smsOtp}
+	areaCalculator := &abs.AreaCalculator{}
 
-	o.GetAndSendOTP(5)
+	square.Accept(areaCalculator)
+	circle.Accept(areaCalculator)
+	rectangle.Accept(areaCalculator)
 
-	emailOtp := &abs.Email{}
-
-	o = abs.Otp{IO: emailOtp}
-
-	o.GetAndSendOTP(3)
+	fmt.Println()
+	middleCoordinates := &abs.MiddleCoordinates{}
+	square.Accept(middleCoordinates)
+	circle.Accept(middleCoordinates)
+	rectangle.Accept(middleCoordinates)
 
 }
