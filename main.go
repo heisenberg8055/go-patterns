@@ -1,47 +1,26 @@
 package main
 
 import (
-	"log"
-
-	abs "github.com/heisenberg8055/go-patterns/behavioral/state"
+	abs "github.com/heisenberg8055/go-patterns/behavioral/strategy"
 )
 
 func main() {
-	vendingMachine := abs.NewVendingMachine(1, 10)
+	lfu := &abs.Lfu{}
+	cache := abs.InitCache(lfu)
 
-	err := vendingMachine.RequestItem()
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	cache.Add("a", "1")
+	cache.Add("b", "2")
+	cache.Add("c", "3")
 
-	err = vendingMachine.InsertMoney(10)
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	lru := &abs.Lru{}
 
-	err = vendingMachine.DispenseItem()
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	cache.SetEvictionPolicy(lru)
 
-	err = vendingMachine.AddItem(2)
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	cache.Add("d", "4")
 
-	err = vendingMachine.RequestItem()
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	fifo := &abs.Fifo{}
+	cache.SetEvictionPolicy(fifo)
 
-	err = vendingMachine.InsertMoney(10)
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-
-	err = vendingMachine.DispenseItem()
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	cache.Add("e", "5")
 
 }
