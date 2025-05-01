@@ -1,26 +1,20 @@
 package main
 
 import (
-	abs "github.com/heisenberg8055/go-patterns/behavioral/strategy"
+	abs "github.com/heisenberg8055/go-patterns/behavioral/template"
 )
 
 func main() {
-	lfu := &abs.Lfu{}
-	cache := abs.InitCache(lfu)
+	smsOtp := &abs.Sms{}
 
-	cache.Add("a", "1")
-	cache.Add("b", "2")
-	cache.Add("c", "3")
+	o := abs.Otp{IO: smsOtp}
 
-	lru := &abs.Lru{}
+	o.GetAndSendOTP(5)
 
-	cache.SetEvictionPolicy(lru)
+	emailOtp := &abs.Email{}
 
-	cache.Add("d", "4")
+	o = abs.Otp{IO: emailOtp}
 
-	fifo := &abs.Fifo{}
-	cache.SetEvictionPolicy(fifo)
-
-	cache.Add("e", "5")
+	o.GetAndSendOTP(3)
 
 }
